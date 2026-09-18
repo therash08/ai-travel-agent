@@ -1,0 +1,13 @@
+version: "3.9"
+
+services:
+  travel_agent:
+    build: .
+    container_name: travel_agent_service
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    volumes:
+      - .:/app  # for local development, remove in production
+    restart: always
