@@ -1,133 +1,560 @@
-# OpenAI Agents SDK Demo
+# AI Travel Agent — OpenAI Agents SDK Demo
 
-This repository contains examples of using the OpenAI Agents SDK to build intelligent travel planning agents with progressively advanced capabilities.
+An AI-powered travel planning assistant built with Python and the OpenAI Agents SDK.
+
+This project demonstrates how to build AI agents step by step, starting from a basic agent and gradually adding structured outputs, tool calling, agent handoffs, guardrails, user context, conversation memory, and a Streamlit web interface.
+
+---
 
 ## Project Structure
 
-- `v1_basic_agent.py` - A simple agent example that generates a haiku about recursion
-- `v2_structured_output.py` - Travel agent with structured output using Pydantic models
-- `v3_tool_calls.py` - Travel agent with tool calls for weather forecasting
-- `v4_handoffs.py` - Travel agent with specialized sub-agents for flights and hotels
-- `v5_guardrails_and_context.py` - Travel agent with budget guardrails and user context
-- `v6_streamlit_agent.py` - A Streamlit web interface for the travel agent with chat memory
+```text
+ai-travel-agent/
+│
+├── v1_basic_agent.py
+├── v2_structured_output.py
+├── v3_tool_calls.py
+├── v4_handoffs.py
+├── v5_guardrails_and_context.py
+├── v6_streamlit_agent.py
+├── requirements.txt
+├── .env
+├── .gitignore
+└── README.md
+```
 
-## Setup
+### Files
 
-1. Install the required dependencies:
+| File | Description |
+|---|---|
+| `v1_basic_agent.py` | Basic agent example demonstrating agent configuration and execution |
+| `v2_structured_output.py` | Travel agent with structured output using Pydantic models |
+| `v3_tool_calls.py` | Travel agent with tool calling for weather forecasting |
+| `v4_handoffs.py` | Travel agent with specialized sub-agents for flights and hotels |
+| `v5_guardrails_and_context.py` | Travel agent with budget guardrails and user context |
+| `v6_streamlit_agent.py` | Streamlit web interface with chat memory and user preferences |
+
+---
+
+## Features
+
+This project demonstrates:
+
+- Basic AI agent configuration
+- OpenAI Agents SDK
+- Structured output with Pydantic
+- Custom tool calling
+- Weather forecasting tools
+- Agent handoffs
+- Specialized flight and hotel agents
+- Budget guardrails
+- User context and preferences
+- Conversation memory
+- Multi-turn conversations
+- Streamlit web interface
+- Optional Logfire tracing
+
+---
+
+## Agent Development Progression
+
+```text
+Basic Agent
+    ↓
+Structured Output
+    ↓
+Tool Calling
+    ↓
+Agent Handoffs
+    ↓
+Guardrails + Context
+    ↓
+Streamlit Chat Application
+```
+
+Each version introduces new capabilities and builds on the concepts demonstrated in the previous version.
+
+---
+
+## Requirements
+
+Make sure Python is installed on your computer.
+
+Recommended:
+
+```text
+Python 3.10+
+```
+
+Check your Python version:
+
+```bash
+python --version
+```
+
+---
+
+## Installation
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/therash08/ai-travel-agent.git
+```
+
+Go inside the project folder:
+
+```bash
+cd ai-travel-agent
+```
+
+---
+
+### 2. Create a Virtual Environment
+
+Windows:
+
+```bash
+python -m venv venv
+```
+
+Activate it:
+
+```bash
+venv\Scripts\activate
+```
+
+macOS/Linux:
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+---
+
+### 3. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-2. Create a `.env` file with your OpenAI API key:
+---
 
-```
+## Environment Variables
+
+Create a `.env` file in the root directory of the project.
+
+Add:
+
+```env
 BASE_URL="https://models.github.ai/inference/v1"
-API_KEY=
+API_KEY="your_api_key_here"
 MODEL_NAME="openai/gpt-4.1-nano"
 ```
 
-## Running the Examples
+Replace:
 
-### Basic Agent (v1)
+```text
+your_api_key_here
+```
 
-Run the basic agent example:
+with your actual API key.
+
+### Important
+
+Never upload your API key to GitHub.
+
+The `.env` file should be included in `.gitignore`.
+
+---
+
+## .gitignore
+
+Create a `.gitignore` file and add:
+
+```gitignore
+# Environment variables
+.env
+
+# Virtual environment
+venv/
+.venv/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# VS Code
+.vscode/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Log files
+*.log
+```
+
+---
+
+# Running the Examples
+
+## V1 — Basic Agent
+
+Run:
 
 ```bash
 python v1_basic_agent.py
 ```
 
-This will execute a simple agent that generates a haiku about recursion.
+This version demonstrates the basic configuration and execution of an AI agent.
 
-### Structured Output Agent (v2)
+It is a simple introduction to how agents work before moving into the travel planning features.
 
-Run the structured output travel agent example:
+---
+
+## V2 — Structured Output Agent
+
+Run:
 
 ```bash
 python v2_structured_output.py
 ```
 
-This demonstrates using Pydantic models to create structured travel plans with destinations, activities, and budget information.
+This version demonstrates structured outputs using Pydantic models.
 
-### Tool Calls Agent (v3)
+Instead of returning only plain text, the agent can organize travel information into structured fields such as:
 
-Run the tool calls travel agent example:
+- Destination
+- Activities
+- Budget
+- Travel recommendations
+
+---
+
+## V3 — Tool Calling Agent
+
+Run:
 
 ```bash
 python v3_tool_calls.py
 ```
 
-This version adds a weather forecasting tool to provide weather information for travel destinations.
+This version introduces custom tool calling.
 
-### Handoffs Agent (v4)
+The travel agent can call a weather forecasting tool when weather information is needed for a destination.
 
-Run the handoffs travel agent example:
+This demonstrates how AI agents can use external functions and tools to complete tasks.
+
+---
+
+## V4 — Agent Handoffs
+
+Run:
 
 ```bash
 python v4_handoffs.py
 ```
 
-This version introduces specialized sub-agents for flight and hotel recommendations, demonstrating agent handoffs.
+This version introduces multiple specialized agents.
 
-### Guardrails and Context Agent (v5)
+The main travel agent can hand off tasks to specialized sub-agents.
 
-Run the guardrails and context travel agent example:
+Examples include:
+
+- Flight Agent
+- Hotel Agent
+
+The flight agent handles flight-related requests, while the hotel agent handles accommodation-related requests.
+
+This demonstrates multi-agent collaboration using the OpenAI Agents SDK.
+
+---
+
+## V5 — Guardrails and Context
+
+Run:
 
 ```bash
 python v5_guardrails_and_context.py
 ```
 
-This version adds:
-- Budget analysis guardrails to validate if a travel budget is realistic
-- User context to store and use preferences like preferred airlines and hotel amenities
+This version adds guardrails and user context.
 
-[Optional] Follow the [Logfire setup intructions](https://logfire.pydantic.dev/docs/#logfire) (free to get started) for tracing in this version and version 6. This example will still work with Logfire configured but you won't get tracing.
+### Budget Guardrails
 
-### Streamlit Chat Interface (v6)
+The agent checks whether the user's travel budget is realistic for the requested trip.
 
-Launch the Streamlit web interface:
+### User Context
+
+The agent can use user preferences such as:
+
+- Preferred airlines
+- Hotel preferences
+- Hotel amenities
+- Travel preferences
+
+This allows the agent to generate more personalized travel recommendations.
+
+---
+
+## Optional Logfire Tracing
+
+Logfire can be used to monitor and trace agent execution.
+
+More information:
+
+https://logfire.pydantic.dev/docs/
+
+The project will still work without Logfire configured, but tracing information will not be available.
+
+---
+
+# V6 — Streamlit Travel Assistant
+
+Run:
 
 ```bash
 streamlit run v6_streamlit_agent.py
 ```
 
-This will start a web server and open a browser window with the travel agent chat interface. Features include:
+After running the command, Streamlit will start a local web server.
 
-- Persistent chat history within a session
-- User preference management in the sidebar
-- Beautifully formatted responses for different types of travel information
-- Support for conversation memory across multiple turns
+A browser window should open automatically.
 
-## Features Demonstrated
+Usually, the application will be available at:
 
-1. **Basic Agent Configuration (v1)**
-   - Instructions and model settings
-   - Simple agent execution
+```text
+http://localhost:8501
+```
 
-2. **Structured Output (v2)**
-   - Using Pydantic models for structured responses
-   - Travel planning with organized information
+---
 
-3. **Tool Calls (v3)**
-   - Custom tools for retrieving external data
-   - Weather forecasting integration
+## Streamlit Application Features
 
-4. **Agent Handoffs (v4)**
-   - Specialized agents for flights and hotels
-   - Delegation to domain-specific experts
+The Streamlit version includes:
 
-5. **Guardrails and Context (v5)**
-   - Input validation with budget guardrails
-   - User context for personalized recommendations
-   - Preference-based sorting of results
+- Interactive chat interface
+- Travel planning assistant
+- Conversation history
+- Multi-turn conversations
+- Session-based memory
+- User preference management
+- Flight recommendations
+- Hotel recommendations
+- Weather information
+- Budget checking
+- Specialized agent handoffs
+- Formatted travel responses
 
-6. **Chat Interface (v6)**
-   - Conversation history and context
-   - User preference management
-   - Formatted responses for different output types
-   - Thread management for persistent conversations
+---
 
-## Notes
+# Technologies Used
 
-This is a demonstration project and uses simulated data for weather, flights, and hotels. In a production environment, you would integrate with real APIs for this information.
-# ai-travel-agent
+This project uses:
+
+- Python
+- OpenAI Agents SDK
+- Pydantic
+- Streamlit
+- Python-dotenv
+- Pydantic Logfire
+
+---
+
+# How the System Works
+
+The project gradually develops a simple agent into a more advanced travel planning system.
+
+```text
+User
+  │
+  ▼
+Travel Agent
+  │
+  ├── Weather Tool
+  │
+  ├── Flight Agent
+  │
+  ├── Hotel Agent
+  │
+  ├── Budget Guardrail
+  │
+  └── User Context
+  │
+  ▼
+Travel Recommendation
+```
+
+The travel agent receives a request from the user and determines what information or specialized agent is required.
+
+It can use tools, hand off tasks to other agents, check budget requirements, and use stored user preferences before generating the final response.
+
+---
+
+# Example Use Cases
+
+Users can ask questions such as:
+
+```text
+Plan a 5-day trip to Tokyo with a budget of $1500.
+```
+
+```text
+Suggest hotels in Dubai for my vacation.
+```
+
+```text
+What will the weather be like during my trip?
+```
+
+```text
+Find suitable flight and hotel options for my trip.
+```
+
+```text
+Plan a budget-friendly vacation for me.
+```
+
+The agent processes the request and uses the appropriate tools or specialized agents.
+
+---
+
+# Development Versions
+
+### Version 1
+
+Basic agent configuration and execution.
+
+### Version 2
+
+Structured output using Pydantic.
+
+### Version 3
+
+Custom tool calling for weather information.
+
+### Version 4
+
+Multi-agent system using agent handoffs.
+
+### Version 5
+
+Budget guardrails and personalized user context.
+
+### Version 6
+
+Complete Streamlit chat interface with conversation memory.
+
+---
+
+# Simulated Data
+
+This project is primarily created for learning and demonstration purposes.
+
+Some information related to:
+
+- Weather
+- Flights
+- Hotels
+
+may use simulated or demonstration data.
+
+For a real production travel application, these tools should be connected to real APIs.
+
+Examples could include:
+
+- Weather APIs
+- Airline APIs
+- Hotel APIs
+- Maps APIs
+- Travel booking APIs
+
+---
+
+# Security
+
+Do not expose API keys publicly.
+
+Never commit the following file:
+
+```text
+.env
+```
+
+Make sure `.env` is included in `.gitignore`.
+
+Before pushing to GitHub, you can check your files using:
+
+```bash
+git status
+```
+
+---
+
+# Running the Full Application
+
+For the final Streamlit version:
+
+```bash
+streamlit run v6_streamlit_agent.py
+```
+
+Then open:
+
+```text
+http://localhost:8501
+```
+
+in your browser if it does not open automatically.
+
+---
+
+# Purpose of the Project
+
+The purpose of this project is to learn and demonstrate agentic AI development using the OpenAI Agents SDK.
+
+The project shows how a basic AI agent can gradually evolve into a more advanced travel assistant capable of:
+
+- Using tools
+- Returning structured outputs
+- Working with multiple agents
+- Applying guardrails
+- Remembering user context
+- Handling conversations
+- Running through a web interface
+
+---
+
+# Future Improvements
+
+Possible future improvements include:
+
+- Real-time weather API integration
+- Real flight search API
+- Real hotel booking API
+- Google Maps integration
+- Destination recommendations
+- Travel cost calculation
+- Currency conversion
+- Database-based chat history
+- User authentication
+- Deployment to the cloud
+- Real-time itinerary generation
+
+---
+
+# Disclaimer
+
+This project is intended for educational and demonstration purposes.
+
+Travel, weather, flight, hotel, and pricing information generated by the application should not be considered real-time booking information unless connected to verified external APIs.
+
+---
+
+# AI Travel Agent
+
+Built as a learning project to explore the OpenAI Agents SDK and modern agentic AI development.
